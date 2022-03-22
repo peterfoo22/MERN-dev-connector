@@ -8,7 +8,7 @@ const { check, validationResult } = require('express-validator/check')
 // @desc   Register user
 // @access  Public
 
-const User =  {};
+const User = require('../../models/User'); //something wrong with the user here
 
 router.post('/', [
     check('name', 'Name is required').not().isEmpty(),
@@ -19,26 +19,30 @@ router.post('/', [
     if(!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     } 
+
+    const { name, email, password } = req.body;
+
     try {
-      let user = await user.findOne({email});
+      let user = await User.findOne({email});
 
       if(user){
           res.status(400).json({errors:[{ msg:'User Already exists'}] });
       }
 
+      const avatar = gravatar.url(email,{
+        s: '200',
+        r: 'pg',
+        d: 'mm'
+      })
+
         user = new User({
-            checkName,
+            name,
             email,
             avatar,
             password
         });
 
-        const avatar = gravatar.url(email,{
-            s: '200',
-            r: 'pg',
-            d: 'mm'
-        })
-   
+       
         const salt = await bcrypt.genSalt(10);
 
         user.password = await bcrypt.hash(password,salt);
