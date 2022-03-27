@@ -61,20 +61,15 @@ router.post('/', [
         }
 
         jwt.sign(
-            payload, 
-            config.get('jwtSecret'),
-            { expiresIn: 360000 },
-            ( err, token ) => {
-              if(err) throw err;
-              return res.json({token});
-            });
+          payload,
+          config.get('jwtSecret'),
+          {expiresIn: 360000},
+          (err, token) => {
+            if(err) throw err;
+            res.json({token});
+          }       
+        );
 
-
-        // see if user exists
-        // get users gravatar
-        // encrypt password
-        console.log(req.body);
-        res.send('User Registered')
     } 
     catch (err) {
         console.error(err.message);
