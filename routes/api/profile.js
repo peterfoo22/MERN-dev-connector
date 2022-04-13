@@ -1,9 +1,9 @@
 const express = require("express");
 const auth = require("../../middleware/auth");
 const router = express.Router();
-const User = require("../../models/User");
 const { check, validationResult } = require("express-validator/check");
 const Profile = require("../../models/Profile");
+const User = require("../../models/User");
 
 // @route  GET api/profile/me
 // @desc   Test route
@@ -82,19 +82,19 @@ router.post(
 		try {
 			let profile = Profile.findOne({ user: req.user.id });
 
-			if (profile) {
+			if (!profile) {
+				profile = new Profile(profileFields);
+				await profile.save();
+				res.json(profile);
+			} else {
 				profile = await Profile.findOneAndUpdate(
 					{ user: req.user.id },
 					{ $set: profileFields },
 					{ new: true }
 				);
-				console.log(res);
+
 				return res.json(profile);
 			}
-
-			profile = new Profile(profileFields);
-			await profile.save();
-			res.json(profile);
 		} catch (error) {
 			console.error(err.message);
 			res.status(500).send("Server Error");
