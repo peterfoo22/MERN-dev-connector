@@ -1,6 +1,9 @@
 {
     "mongoURI":"mongodb+srv://peterfoo22:Dragon12@cluster0.b8vgx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    "jwtSecret": "mySecretToken"
+    "jwtSecret": "mySecretToken",
+    "gitHubClientID":"a9d6dbaaf73c19c850a9",
+    "gitHubSecret":"1c7bf34d07b3ec961270caaa2aec413e640c7cd7"
+
 }
 
 
