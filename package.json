@@ -25,6 +25,7 @@
   "homepage": "https://github.com/peterfoo22/MERN-dev-connector#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "build": "^0.1.4",
     "config": "^3.3.7",
     "express": "^4.17.3",
     "express-validator": "^6.14.0",
@@ -32,6 +33,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.7",
     "nvm": "0.0.4",
+    "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0",
     "request": "^2.88.2"
   },
   "devDependencies": {
