@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/peterfoo22/MERN-dev-connector#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
     "build": "^0.1.4",
     "config": "^3.3.7",
@@ -35,6 +36,7 @@
     "nvm": "0.0.4",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
+    "react-scripts": "^5.0.1",
     "request": "^2.88.2"
   },
   "devDependencies": {
