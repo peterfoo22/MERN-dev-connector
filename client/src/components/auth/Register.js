@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from "react";
-import axios from 'axios';
 
 const Register = () => {
 	const [formData, setFormData] = useState({
@@ -27,16 +26,20 @@ const Register = () => {
 			}
 
 			try {
-
-				const config ={
-					headers:{
-						'Content-Type': 'applications/json'
-					}		
-				}
-				
-				const body = JSON.stringify(newUser);
-				const res =  axios.post('/api/users', body, config);
-				console.log(res.data); 
+			const url = "http://localhost:5001/api/users";
+			const options = {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json;charset=UTF-8",
+			},
+			body: JSON.stringify(newUser),
+			};
+			fetch(url, options)
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+			});
 			} catch (err) {
 				console.error(err.response.data);
 			}
