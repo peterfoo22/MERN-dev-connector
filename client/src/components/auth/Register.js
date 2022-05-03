@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
+
 
 const Register = () => {
 	const [formData, setFormData] = useState({
@@ -19,30 +21,32 @@ const Register = () => {
 		if (password !== password2) {
 			console.log("Passwords don't match");
 		} else {
-			const newUser = {
-				name,
-				email,
-				password
-			}
+			// const newUser = {
+			// 	name,
+			// 	email,
+			// 	password
+			// }
 
-			try {
-			const url = "http://localhost:5001/api/users";
-			const options = {
-			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json;charset=UTF-8",
-			},
-			body: JSON.stringify(newUser),
-			};
-			fetch(url, options)
-			.then((response) => response.json())
-			.then((data) => {
-				console.log(data);
-			});
-			} catch (err) {
-				console.error(err.response.data);
-			}
+			// try {
+			// const url = "http://localhost:5001/api/users";
+			// const options = {
+			// method: "POST",
+			// headers: {
+			// 	Accept: "application/json",
+			// 	"Content-Type": "application/json;charset=UTF-8",
+			// },
+			// body: JSON.stringify(newUser),
+			// };
+			// fetch(url, options)
+			// .then((response) => response.json())
+			// .then((data) => {
+			// 	console.log(data);
+			// });
+			// } catch (err) {
+			// 	console.error(err.response.data);
+			// }
+
+
 
 		}
 	};
@@ -100,7 +104,7 @@ const Register = () => {
 				<input type="submit" className="btn btn-primary" value="Register" />
 			</form>
 			<p className="my-1">
-				Already have an account? <a href="login.html">Sign In</a>
+				Already have an account? <Link to="/login">Sign In</Link>
 			</p>
 		</Fragment>
 	);
