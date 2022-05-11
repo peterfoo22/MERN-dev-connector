@@ -1,4 +1,5 @@
-import {SET_ALERT, REMOVE_ALERT } from '../action/types'
+//testing
+import {SET_ALERT, REMOVE_ALERT } from '../actions/types'
 
 const initialState = [];
 
