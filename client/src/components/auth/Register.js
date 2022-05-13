@@ -2,11 +2,11 @@ import React, { Fragment, useState } from "react";
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { setAlert } from '../../actions/alert'
+import { register } from '../../actions/auth'
 import PropTypes from 'prop-types'
 
 
-
-const Register = (props) => {
+const Register = ({setAlert, register}) => {
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
@@ -23,34 +23,10 @@ const Register = (props) => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (password !== password2) {
-			props.setAlert('Passwords Do Not Match', 'danger')
+			setAlert('Passwords Do Not Match', 'danger')
 		} else {
-			// const newUser = {
-			// 	name,
-			// 	email,
-			// 	password
-			// }
 
-			// try {
-			// const url = "http://localhost:5001/api/users";
-			// const options = {
-			// method: "POST",
-			// headers: {
-			// 	Accept: "application/json",
-			// 	"Content-Type": "application/json;charset=UTF-8",
-			// },
-			// body: JSON.stringify(newUser),
-			// };
-			// fetch(url, options)
-			// .then((response) => response.json())
-			// .then((data) => {
-			// 	console.log(data);
-			// });
-			// } catch (err) {
-			// 	console.error(err.response.data);
-			// }
-
-
+			register({name, email, password});
 
 		}
 	};
@@ -79,6 +55,7 @@ const Register = (props) => {
 						value={email}
 						onChange={(e) => onChange(e)}
 						name="email"
+						required
 					/>
 					<small className="form-text">
 						This site uses Gravatar so if you want a profile image, use a
@@ -115,7 +92,8 @@ const Register = (props) => {
 };
 
 Register.propTypes = {
-	setAlert: PropTypes.func.isRequired
+	setAlert: PropTypes.func.isRequired,
+	register: PropTypes.func.isRequired
 };
 
-export default connect(null, { setAlert })(Register);
+export default connect(null, { setAlert, register })(Register);
