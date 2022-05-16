@@ -6,6 +6,8 @@ import Login from "./components/auth/Login";
 import React, { Fragment, useEffect } from "react";
 import Navbar from "./components/layout/Navbar";
 import Alert from './components/layout/Alert';
+import Dashboard from "./components/dashboard/Dashboard";
+import PrivateRoute from "./components/routing/PrivateRoute";
 
 //Redux
 import { Provider } from 'react-redux';
@@ -24,7 +26,7 @@ const App = () => {
     store.dispatch(loadUser());
 
   }, []);
-	
+
 	return (
 		<Provider store = {store}>
 			<Router>
@@ -36,6 +38,8 @@ const App = () => {
 							<Route exact path="/" element={<Landing />} />
 							<Route exact path="/register" element={<Register />} />
 							<Route exact path="/login" element={<Login />} />
+							<PrivateRoute exact path="/dashboard" element={<Dashboard />} />
+
 						</Routes>
 					</section>
 				</Fragment>
