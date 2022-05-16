@@ -1,7 +1,11 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { connect } from "react-redux";
+import { PropTypes } from "prop-types";
+import { login } from "../../actions/auth";
 
-const Login = () => {
+
+const Login = ({login,isAuthenticated}) => {
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
@@ -15,41 +19,13 @@ const Login = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		console.log('sucess');
-		if (password !== '123456') {
-			console.log("Passwords don't match");
-		} else {
-
-			console.log('success')
-			// const newUser = {
-			// 	name,
-			// 	email,
-			// 	password
-			// }
-
-			// try {
-			// const url = "http://localhost:5001/api/users";
-			// const options = {
-			// method: "POST",
-			// headers: {
-			// 	Accept: "application/json",
-			// 	"Content-Type": "application/json;charset=UTF-8",
-			// },
-			// body: JSON.stringify(newUser),
-			// };
-			// fetch(url, options)
-			// .then((response) => response.json())
-			// .then((data) => {
-			// 	console.log(data);
-			// });
-			// } catch (err) {
-			// 	console.error(err.response.data);
-			// }
-
-			
-
-		}
+		login(email, password);
 	};
+
+	//redict if logged in
+	if(isAuthenticated){
+		return <Navigate to = '/dashboard'/>
+	}
 
 	return (
 		<Fragment>
@@ -87,4 +63,13 @@ const Login = () => {
 	);
 };
 
-export default Login;
+Login.propTypes = {
+	login: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool	
+} 
+
+const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { login }) (Login);
