@@ -38,8 +38,7 @@ const App = () => {
 							<Route exact path="/" element={<Landing />} />
 							<Route exact path="/register" element={<Register />} />
 							<Route exact path="/login" element={<Login />} />
-							<PrivateRoute exact path="/dashboard" element={<Dashboard />} />
-
+							<Route path="/dashboard" element={ <PrivateRoute> <Dashboard /></PrivateRoute>}/>
 						</Routes>
 					</section>
 				</Fragment>
