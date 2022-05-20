@@ -1,3 +1,5 @@
+/* eslint-disable import/no-anonymous-default-export */
+
 import { GET_PROFILE, PROFILE_ERROR } from "../actions/types";
 
 const initialState = {
