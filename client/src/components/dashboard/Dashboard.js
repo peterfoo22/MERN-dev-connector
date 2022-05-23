@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
-import { getCurrentProfiles } from "../../actions/profile";
+import { getCurrentProfile } from "../../actions/profile";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -13,8 +13,8 @@ const Dashboard = ({
 	profile: { profile, loading },
 }) => {
 	useEffect(() => {
-		getCurrentProfiles();
-	}, []);
+		getCurrentProfile();
+	}, [getCurrentProfile]);
 
 	return loading && profile !== null ? (
 		<Spinner />
@@ -49,4 +49,4 @@ const mapStateToProps = (state) => ({
 	profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getCurrentProfiles })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
