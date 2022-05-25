@@ -28,28 +28,34 @@ export const createProfile =
 	(formData, history, edit = false) =>
 	async (dispatch) => {
 		try {
-			const config = {
+
+			await fetch("http://localhost:5001/api/profile/", {
+				method: "POST", // or 'PUT'
 				headers: {
-					"Content-Type": "applications/json",
+					"Content-Type": "application/json",
+					'Accept': 'application/json',
+					"x-auth-token": `${localStorage.token}`
 				},
-			};
+				body: JSON.stringify(formData), // error if you don't turn into JSON
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					console.log("Success:", data);
 
-			const res = await axios.post(
-				"http://localhost:5001/api/profile",
-				formData
-			);
+					dispatch({
+						type: GET_PROFILE,
+						payload: data
+					});
 
-			dispatch({
-				type: GET_PROFILE,
-				payload: res.data,
-			});
+					dispatch(setAlert(edit ? "Profile Updated" : "Profile Created"));
+				})
+				.catch((error) => {
+					console.error("Error:", error);
+				});
 
-			dispatch(setAlert(edit ? "Profile Updated" : "Profile Created"));
-
-			if (edit) {
-				history.push("/dashboard");
-			}
+		
 		} catch (err) {
+			
 			const errors = err.response.data.errors;
 
 			if (errors) {
