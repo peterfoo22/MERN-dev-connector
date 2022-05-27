@@ -1,5 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alert";
+
 //import { setAlert } from "./alert";
 
 import { GET_PROFILE, PROFILE_ERROR } from "./types";
@@ -9,7 +10,7 @@ import { GET_PROFILE, PROFILE_ERROR } from "./types";
 export const getCurrentProfile = () => async (dispatch) => {
 	try {
 		const res = await axios.get("http://localhost:5001/api/profile/me");
-    
+
 		dispatch({
 			type: GET_PROFILE,
 			payload: res.data,
@@ -27,14 +28,15 @@ export const getCurrentProfile = () => async (dispatch) => {
 export const createProfile =
 	(formData, history, edit = false) =>
 	async (dispatch) => {
-		try {
 
+		try {
+			// could not use the axios.post command as it as not working, used the fetch command instead
 			await fetch("http://localhost:5001/api/profile/", {
 				method: "POST", // or 'PUT'
 				headers: {
 					"Content-Type": "application/json",
-					'Accept': 'application/json',
-					"x-auth-token": `${localStorage.token}`
+					Accept: "application/json",
+					"x-auth-token": `${localStorage.token}`,
 				},
 				body: JSON.stringify(formData), // error if you don't turn into JSON
 			})
@@ -44,18 +46,17 @@ export const createProfile =
 
 					dispatch({
 						type: GET_PROFILE,
-						payload: data
+						payload: data,
 					});
 
 					dispatch(setAlert(edit ? "Profile Updated" : "Profile Created"));
+
+				
 				})
 				.catch((error) => {
 					console.error("Error:", error);
 				});
-
-		
 		} catch (err) {
-			
 			const errors = err.response.data.errors;
 
 			if (errors) {

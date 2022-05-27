@@ -9,7 +9,7 @@ export const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 		<ul>
 			<li>
 				<Link to="/dashboard">
-					<i class="fa-light fa-banjo"></i>
+					<i className="fa-light fa-banjo"></i>
 					<span className="hide-sm">Dashboard</span>
 				</Link>
 			</li>
