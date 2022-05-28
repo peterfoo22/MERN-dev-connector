@@ -10,13 +10,13 @@ import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import CreateProfile from "./components/profile-forms/CreateProfile";
 import EditProfile from "./components/profile-forms/EditProfile";
-
 //Redux
 import { Provider } from 'react-redux';
 import store from './store';
 
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+import AddExperience from "./components/profile-forms/AddExperience";
 
 const App = () => {
 
@@ -43,7 +43,7 @@ const App = () => {
 							<Route exact path="/dashboard" element={ <PrivateRoute> <Dashboard /></PrivateRoute>}/>
 							<Route exact path="/create-profile" element={ <PrivateRoute> <CreateProfile /></PrivateRoute>}/>
 							<Route exact path="/edit-profile" element={ <PrivateRoute> <EditProfile /></PrivateRoute>}/>
-
+							<Route exact path="/add-experience" element={ <PrivateRoute> <AddExperience /></PrivateRoute>}/>
 						</Routes>
 					</section>
 				</Fragment>
