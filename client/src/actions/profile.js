@@ -82,7 +82,6 @@ export const createProfile =
 
 export const addExperience = (formData) => async (dispatch) => {
 	try {
-		console.log("this is hitting this function");
 		// could not use the axios.post command as it as not working, used the fetch command instead
 		await fetch("http://localhost:5001/api/profile/experience", {
 			method: "PUT", // or 'PUT'
@@ -169,16 +168,24 @@ export const addEducation = (formData) => async (dispatch) => {
 
 export const deleteExperience = (id) => async (dispatch) => {
 	try {
-		const res = await axios.delete(
-			`http://localhost:5001/api/profile/experience/${id}`
-		);
+
+		fetch(`http://localhost:5001/api/profile/experience/${id}`, {
+			method: "DELETE", // or 'PUT'
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+				"x-auth-token": `${localStorage.token}`,
+			},
+		})
 
 		dispatch({
-			type: UPDATE_PROFILE,
-			payload: res.data,
+			type: UPDATE_PROFILE		
 		});
 
 		dispatch(setAlert("Experience Removed", "success"));
+		
+    window.setInterval(window.location.reload(), 20000); 	
+
 	} catch (err) {
 		dispatch({
 			type: PROFILE_ERROR,
@@ -191,16 +198,22 @@ export const deleteExperience = (id) => async (dispatch) => {
 
 export const deleteEducation = (id) => async (dispatch) => {
 	try {
-		const res = await axios.delete(
-			`http://localhost:5001/api/profile/education/${id}`
-		);
+	fetch(`http://localhost:5001/api/profile/education/${id}`, {
+			method: "DELETE", // or 'PUT'
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+				"x-auth-token": `${localStorage.token}`,
+			},
+		})
 
 		dispatch({
-			type: UPDATE_PROFILE,
-			payload: res.data,
+			type: UPDATE_PROFILE		
 		});
 
 		dispatch(setAlert("Education Removed", "success"));
+		
+    window.setInterval(window.location.reload(), 20000);
 	} catch (err) {
 		dispatch({
 			type: PROFILE_ERROR,
@@ -214,7 +227,15 @@ export const deleteEducation = (id) => async (dispatch) => {
 export const deleteAccount = (id) => async (dispatch) => {
 	if (window.confirm("Are you sure? This cannot be undone!")) {
 		try {
-			const res = await axios.delete("http://localhost:5001/api/profile/");
+
+			fetch("http://localhost:5001/api/profile/", {
+				method: "DELETE", // or 'PUT'
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+					"x-auth-token": `${localStorage.token}`,
+				},
+			});
 
 			dispatch({
 				type: CLEAR_PROFILE,
