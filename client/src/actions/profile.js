@@ -9,6 +9,8 @@ import {
 	UPDATE_PROFILE,
 	ACCOUNT_DELETED,
 	CLEAR_PROFILE,
+	GET_PROFILES,
+	GET_REPOS
 } from "./types";
 
 // Get current users profile
@@ -19,11 +21,71 @@ export const getCurrentProfile = () => async (dispatch) => {
 
 		dispatch({
 			type: GET_PROFILE,
-			payload: res.data
+			payload: res.data,
 		});
 
 		console.log("Success:", res.data);
+	} catch (err) {
+		dispatch({
+			type: PROFILE_ERROR,
+			payload: { msg: err.response.status.text, status: err.response.status },
+		});
+	}
+};
 
+//get all profiles
+
+export const getProfiles = () => async (dispatch) => {
+	dispatch({type: CLEAR_PROFILE});
+	try {
+		const res = await axios.get("http://localhost:5001/api/profile/");
+
+		dispatch({
+			type: GET_PROFILES,
+			payload: res.data,
+		});
+
+		console.log("Success:", res.data);
+	} catch (err) {
+		dispatch({
+			type: PROFILE_ERROR,
+			payload: { msg: err.response.status.text, status: err.response.status },
+		});
+	}
+};
+
+//get all profiles
+
+export const getProfileByID = (userID) => async (dispatch) => {
+	try {
+		const res = await axios.get(`http://localhost:5001/api/profile/${userID}`);
+
+		dispatch({
+			type: GET_PROFILE,
+			payload: res.data,
+		});
+
+		console.log("Success:", res.data);
+	} catch (err) {
+		dispatch({
+			type: PROFILE_ERROR,
+			payload: { msg: err.response.status.text, status: err.response.status },
+		});
+	}
+};
+
+//get githubrepos
+
+export const getGitHubRepos = (username) => async (dispatch) => {
+	try {
+		const res = await axios.get(`http://localhost:5001/api/profile/github/${username}`);
+
+		dispatch({
+			type: GET_REPOS,
+			payload: res.data,
+		});
+
+		console.log("Success:", res.data);
 	} catch (err) {
 		dispatch({
 			type: PROFILE_ERROR,
@@ -168,7 +230,6 @@ export const addEducation = (formData) => async (dispatch) => {
 
 export const deleteExperience = (id) => async (dispatch) => {
 	try {
-
 		fetch(`http://localhost:5001/api/profile/experience/${id}`, {
 			method: "DELETE", // or 'PUT'
 			headers: {
@@ -176,16 +237,15 @@ export const deleteExperience = (id) => async (dispatch) => {
 				Accept: "application/json",
 				"x-auth-token": `${localStorage.token}`,
 			},
-		})
+		});
 
 		dispatch({
-			type: UPDATE_PROFILE		
+			type: UPDATE_PROFILE,
 		});
 
 		dispatch(setAlert("Experience Removed", "success"));
-		
-    window.setInterval(window.location.reload(), 20000); 	
 
+		window.setInterval(window.location.reload(), 20000);
 	} catch (err) {
 		dispatch({
 			type: PROFILE_ERROR,
@@ -198,22 +258,22 @@ export const deleteExperience = (id) => async (dispatch) => {
 
 export const deleteEducation = (id) => async (dispatch) => {
 	try {
-	fetch(`http://localhost:5001/api/profile/education/${id}`, {
+		fetch(`http://localhost:5001/api/profile/education/${id}`, {
 			method: "DELETE", // or 'PUT'
 			headers: {
 				"Content-Type": "application/json",
 				Accept: "application/json",
 				"x-auth-token": `${localStorage.token}`,
 			},
-		})
+		});
 
 		dispatch({
-			type: UPDATE_PROFILE		
+			type: UPDATE_PROFILE,
 		});
 
 		dispatch(setAlert("Education Removed", "success"));
-		
-    window.setInterval(window.location.reload(), 20000);
+
+		window.setInterval(window.location.reload(), 20000);
 	} catch (err) {
 		dispatch({
 			type: PROFILE_ERROR,
@@ -227,7 +287,6 @@ export const deleteEducation = (id) => async (dispatch) => {
 export const deleteAccount = (id) => async (dispatch) => {
 	if (window.confirm("Are you sure? This cannot be undone!")) {
 		try {
-
 			fetch("http://localhost:5001/api/profile/", {
 				method: "DELETE", // or 'PUT'
 				headers: {

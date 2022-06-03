@@ -13,7 +13,6 @@ const Post = require("../../models/Post");
 // @desc   Test route
 // @access  Public
 
-
 router.get("/me", auth, async (req, res) => {
 	try {
 		const profile = await Profile.findOne({
@@ -31,18 +30,18 @@ router.get("/me", auth, async (req, res) => {
 	}
 });
 
-
 // @route  POST api/profile/
 // @desc   Create or Update a User Profile
 // @access  Private
 
-router.post("/",
+router.post(
+	"/",
 	[
 		auth,
 		[
 			check("status", "status is required").not().isEmpty(),
-			check("skills", "Skills is required").not().isEmpty()
-		]
+			check("skills", "Skills is required").not().isEmpty(),
+		],
 	],
 	async (req, res) => {
 		const errors = validationResult(req);
@@ -89,18 +88,17 @@ router.post("/",
 			let profile = await Profile.findOne({ user: req.user.id });
 
 			if (profile) {
-						profile = await Profile.findOneAndUpdate(
-							{ user: req.user.id },
-							{ $set: profileFields },
-							{ new: true }
-						);
-						return res.json(profile);
-					};
+				profile = await Profile.findOneAndUpdate(
+					{ user: req.user.id },
+					{ $set: profileFields },
+					{ new: true }
+				);
+				return res.json(profile);
+			}
 
-		profile = new Porifle(profileFields);
-		await Profile.save();
-		return json(profile);	
-
+			profile = new Porifle(profileFields);
+			await Profile.save();
+			return json(profile);
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).send("Server Error");
@@ -152,9 +150,8 @@ router.get("/user/:user_id", async (req, res) => {
 
 router.delete("/", auth, async (req, res) => {
 	try {
-
 		//Remove user posts
-		await Post.deleteMany({user: req.user.id});
+		await Post.deleteMany({ user: req.user.id });
 
 		//Remove Profile
 		await Profile.findOneAndRemove({
