@@ -5,6 +5,7 @@ import Spinner from "../layout/Spinner";
 import { getProfileByID } from "../../actions/profile";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import ProfileTop from './ProfileTop'
 
 const Profile = ({
 	getProfileByID,
@@ -34,6 +35,9 @@ const Profile = ({
 								Edit Profile
 							</Link>
 						)}
+          <div class="profile-grid my-1">
+              <ProfileTop profile ={profile} />
+          </div>
 				</Fragment>
 			)}
 		</Fragment>

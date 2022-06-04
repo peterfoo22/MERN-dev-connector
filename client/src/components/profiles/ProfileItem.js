@@ -9,9 +9,19 @@ const ProfileItem = ({profile:{
   location,
   skills
 }}) => {
+
+  const myStyle = {
+    "max:width":"50%" 
+  }
+
   return (
 		<div classname="card text-center">
-			<img src="{avatar}" alt="" className="round img" />
+			<img
+				src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
+				alt=""
+				style={myStyle}
+				className="round-img my-1"
+			/>
 			<div>
 				<h2>{name}</h2>
 				<p>
