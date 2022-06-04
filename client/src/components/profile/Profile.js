@@ -6,6 +6,7 @@ import { getProfileByID } from "../../actions/profile";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ProfileTop from './ProfileTop'
+import ProfileAbout from './ProfileAbout'
 
 const Profile = ({
 	getProfileByID,
@@ -37,6 +38,7 @@ const Profile = ({
 						)}
           <div class="profile-grid my-1">
               <ProfileTop profile ={profile} />
+              <ProfileAbout profile = {profile} />
           </div>
 				</Fragment>
 			)}
