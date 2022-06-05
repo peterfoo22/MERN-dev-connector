@@ -24,7 +24,7 @@ export const getCurrentProfile = () => async (dispatch) => {
 			payload: res.data,
 		});
 
-		console.log("Success:", res.data);
+		console.log("Success - Curren Users Profile:", res.data);
 	} catch (err) {
 		dispatch({
 			type: PROFILE_ERROR,
@@ -45,7 +45,7 @@ export const getProfiles = () => async (dispatch) => {
 			payload: res.data,
 		});
 
-		console.log("Success:", res.data);
+		console.log("Success - All Profiles:", res.data);
 	} catch (err) {
 		dispatch({
 			type: PROFILE_ERROR,
@@ -54,7 +54,7 @@ export const getProfiles = () => async (dispatch) => {
 	}
 };
 
-//get all profiles
+//get one profile
 
 export const getProfileByID = (userID) => async (dispatch) => {
 	try {
@@ -65,7 +65,7 @@ export const getProfileByID = (userID) => async (dispatch) => {
 			payload: res.data,
 		});
 
-		console.log("Success:", res.data);
+		console.log("Success - One Profile :", res.data);
 	} catch (err) {
 		dispatch({
 			type: PROFILE_ERROR,
@@ -85,8 +85,11 @@ export const getGitHubRepos = (username) => async (dispatch) => {
 			payload: res.data,
 		});
 
-		console.log("Success:", res.data);
+		console.log("Success - GITHUB:", res.data);
 	} catch (err) {
+
+		console.log("No Github Found")
+
 		dispatch({
 			type: PROFILE_ERROR,
 			payload: { msg: err.response.status.text, status: err.response.status },
@@ -112,7 +115,7 @@ export const createProfile =
 			})
 				.then((response) => response.json())
 				.then((data) => {
-					console.log("Success:", data);
+					console.log("Success - Created Profile:", data);
 
 					dispatch({
 						type: GET_PROFILE,
@@ -156,7 +159,7 @@ export const addExperience = (formData) => async (dispatch) => {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log("Success:", data);
+				console.log("Success - Add Experience:", data);
 
 				dispatch({
 					type: UPDATE_PROFILE,
@@ -198,7 +201,7 @@ export const addEducation = (formData) => async (dispatch) => {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log("Success:", data);
+				console.log("Success - Add Education:", data);
 
 				dispatch({
 					type: UPDATE_PROFILE,

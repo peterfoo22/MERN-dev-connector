@@ -11,22 +11,22 @@ const ProfileTop = ({profile: {
 }}) => {
   return (
 		<Fragment>
-			<div class="profile-top bg-primary p-2">
+			<div className="profile-top bg-primary p-2">
 				<img
-					class="round-img my-1"
+					className="round-img my-1"
 					src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
 					alt=""
 				/>
-				<h1 class="large">{name}</h1>
-				<p class="lead">
+				<h1 className="large">{name}</h1>
+				<p className="lead">
 					{status}
 					{company && <span>at {company}</span>}
 				</p>
 				<p>{location && <span> {location}</span>}</p>
-				<div class="icons my-1">
+				<div className="icons my-1">
 					{website && (
 						<a href="{website}" target="_blank" rel="noopener noreferrer">
-							<i class="fas fa-globe fa-2x"></i>
+							<i className="fas fa-globe fa-2x"></i>
 						</a>
 					)}
 
@@ -36,7 +36,7 @@ const ProfileTop = ({profile: {
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							<i class="fas fa-globe fa-2x"></i>
+							<i className="fas fa-globe fa-2x"></i>
 						</a>
 					)}
 
@@ -46,7 +46,7 @@ const ProfileTop = ({profile: {
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							<i class="fas fa-globe fa-2x"></i>
+							<i className="fas fa-globe fa-2x"></i>
 						</a>
 					)}
 
@@ -56,7 +56,7 @@ const ProfileTop = ({profile: {
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							<i class="fas fa-globe fa-2x"></i>
+							<i className="fas fa-globe fa-2x"></i>
 						</a>
 					)}
 
@@ -66,7 +66,7 @@ const ProfileTop = ({profile: {
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							<i class="fas fa-globe fa-2x"></i>
+							<i className="fas fa-globe fa-2x"></i>
 						</a>
 					)}
 
@@ -76,7 +76,7 @@ const ProfileTop = ({profile: {
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							<i class="fas fa-globe fa-2x"></i>
+							<i className="fas fa-globe fa-2x"></i>
 						</a>
 					)}
 
