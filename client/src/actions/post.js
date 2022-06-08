@@ -1,6 +1,12 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { GET_POSTS, POST_ERROR, UPDATE_LIKES } from "./types";
+import {
+	DELETE_POST,
+	GET_POSTS,
+	POST_ERROR,
+	UPDATE_LIKES,
+	ADD_POST,
+} from "./types";
 
 //get posts
 
@@ -39,10 +45,9 @@ export const addLike = (postID) => async (dispatch) => {
 				if (response.ok) {
 					response.json();
 				}
-        dispatch(setAlert("Already Liked", "Fail"));
+				dispatch(setAlert("Already Liked", "Fail"));
 
-        return Promise.reject(response);
-
+				return Promise.reject(response);
 			})
 			.then((data) => {
 				dispatch({
@@ -83,4 +88,70 @@ export const removeLike = (postID) => async (dispatch) => {
 			payload: { msg: err.response.statusText, status: err.response.status },
 		});
 	}
+};
+
+//delete posts
+
+export const deletePost = (postID) => async (dispatch) => {
+	// could not use the axios.post command as it as not working, used the fetch command instead
+	await fetch(`http://localhost:5001/api/posts/${postID}`, {
+		method: "DELETE", // or 'PUT'
+		headers: {
+			"Content-Type": "application/json",
+			Accept: "application/json",
+			"x-auth-token": `${localStorage.token}`,
+		},
+	})
+		.then((response) => {
+			if (response.ok) {
+				response.json();
+			}
+
+			dispatch(setAlert("Not Authorized", "Fail"));
+
+			return Promise.reject(response);
+		})
+		.then((data) => {
+			dispatch({
+				type: DELETE_POST,
+				payload: postID,
+			});
+
+			dispatch(setAlert("Post Removed", "success"));
+		})
+		.catch((error) => {
+			dispatch({
+				type: POST_ERROR,
+				payload: {
+					msg: error.response.statusText,
+					status: error.response.status,
+				},
+			});
+		});
+};
+
+export const addPost = (formData) => async (dispatch) => {
+	// could not use the axios.post command as it as not working, used the fetch command instead
+	await fetch(`http://localhost:5001/api/posts/`, {
+		method: "POST", // or 'PUT'
+		headers: {
+			"Content-Type": "application/json",
+			Accept: "application/json",
+			"x-auth-token": `${localStorage.token}`,
+		},
+		body: JSON.stringify(formData),
+	})
+		.then((response) => {
+			if (response.ok) {
+				response.json();
+			}
+		})
+		.then((data) => {
+			dispatch({
+				type: ADD_POST,
+				payload: data,
+			});
+
+			dispatch(setAlert("Post Created", "success"));
+		})
 };
