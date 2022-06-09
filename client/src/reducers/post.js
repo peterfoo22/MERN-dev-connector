@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 
-import { GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POST, ADD_POST } from "../actions/types";
+import { GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POST, ADD_POST, GET_POST } from "../actions/types";
 
 const initialState = {
 	posts: [],
@@ -18,6 +18,12 @@ export default function (state = initialState, action) {
 				posts: payload,
         loading: false
 			};
+    case GET_POST:
+      return {
+        ...state,
+        post: payload,
+        loading: false
+      };
     case ADD_POST:
       return {
         ...state,

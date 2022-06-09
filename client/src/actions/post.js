@@ -6,6 +6,7 @@ import {
 	POST_ERROR,
 	UPDATE_LIKES,
 	ADD_POST,
+	GET_POST
 } from "./types";
 
 //get posts
@@ -127,4 +128,24 @@ export const addPost = (formData) => async (dispatch) => {
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
+};
+
+//get posts
+
+export const getPost = (id) => async (dispatch) => {
+	try {
+		const res = await axios.get(`http://localhost:5001/api/posts/${id}`);
+
+		console.log("Post Retreived", res.data)
+
+		dispatch({
+			type: GET_POST,
+			payload: res.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: POST_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
 };
