@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect,useState, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import PostItem from './PostItem';
@@ -10,6 +10,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
 	useEffect(() => {
 		getPosts();
 	}, [getPosts]);
+
 
 	return loading ? (
 		<Spinner />
@@ -27,6 +28,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
 			</div>
 		</Fragment>
 	);
+
 };
 
 Posts.propTypes = {

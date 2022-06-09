@@ -92,66 +92,39 @@ export const removeLike = (postID) => async (dispatch) => {
 
 //delete posts
 
-export const deletePost = (postID) => async (dispatch) => {
-	// could not use the axios.post command as it as not working, used the fetch command instead
-	await fetch(`http://localhost:5001/api/posts/${postID}`, {
-		method: "DELETE", // or 'PUT'
-		headers: {
-			"Content-Type": "application/json",
-			Accept: "application/json",
-			"x-auth-token": `${localStorage.token}`,
-		},
-	})
-		.then((response) => {
-			if (response.ok) {
-				response.json();
-			}
+export const deletePost = (id) => async (dispatch) => {
+	try {
+		await axios.delete(`http://localhost:5001/api/posts/${id}`);
 
-			dispatch(setAlert("Not Authorized", "Fail"));
-
-			return Promise.reject(response);
-		})
-		.then((data) => {
-			dispatch({
-				type: DELETE_POST,
-				payload: postID,
-			});
-
-			dispatch(setAlert("Post Removed", "success"));
-		})
-		.catch((error) => {
-			dispatch({
-				type: POST_ERROR,
-				payload: {
-					msg: error.response.statusText,
-					status: error.response.status,
-				},
-			});
+		dispatch({
+			type: DELETE_POST,
+			payload: id,
 		});
+
+		dispatch(setAlert("Post Removed", "success"));
+	} catch (err) {
+		dispatch({
+			type: POST_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
 };
 
+// Add post
 export const addPost = (formData) => async (dispatch) => {
-	// could not use the axios.post command as it as not working, used the fetch command instead
-	await fetch(`http://localhost:5001/api/posts/`, {
-		method: "POST", // or 'PUT'
-		headers: {
-			"Content-Type": "application/json",
-			Accept: "application/json",
-			"x-auth-token": `${localStorage.token}`,
-		},
-		body: JSON.stringify(formData),
-	})
-		.then((response) => {
-			if (response.ok) {
-				response.json();
-			}
-		})
-		.then((data) => {
-			dispatch({
-				type: ADD_POST,
-				payload: data,
-			});
+  try {
+    const res = await axios.post("http://localhost:5001/api/posts", formData);
 
-			dispatch(setAlert("Post Created", "success"));
-		})
+    dispatch({
+      type: ADD_POST,
+      payload: res.data
+    });
+
+    dispatch(setAlert('Post Created', 'success'));
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
 };

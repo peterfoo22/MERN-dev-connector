@@ -87,9 +87,6 @@ export const getGitHubRepos = (username) => async (dispatch) => {
 
 		console.log("Success - GITHUB:", res.data);
 	} catch (err) {
-
-		console.log("No Github Found")
-
 		dispatch({
 			type: PROFILE_ERROR,
 			payload: { msg: err.response.status.text, status: err.response.status },
@@ -201,7 +198,7 @@ export const addEducation = (formData) => async (dispatch) => {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log("Success - Add Education:", data);
+				console.log("Success:", data);
 
 				dispatch({
 					type: UPDATE_PROFILE,
