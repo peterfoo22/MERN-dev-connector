@@ -100,8 +100,15 @@ export const createProfile =
 	(formData, edit = false) =>
 	async (dispatch) => {
 		try {
+
+				const config = {
+					headers: {
+						"Content-Type": "application/json",
+						"x-auth-token":`${localStorage.token}`
+					},
+				};
 			// could not use the axios.post command as it as not working, used the fetch command instead
-		  const res = await axios.post("api/profile/", formData);
+		  const res = await axios.post("/api/profile/", formData, config);
 
 			dispatch({
 				type: GET_PROFILE,
