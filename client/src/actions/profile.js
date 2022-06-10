@@ -142,7 +142,7 @@ export const createProfile =
 export const addExperience = (formData) => async (dispatch) => {
 	try {
 		// could not use the axios.post command as it as not working, used the fetch command instead
-		const res = await axios.put("api//profile/experience", formData);
+		const res = await axios.put("api/profile/experience", formData);
 
 		dispatch({
 			type: UPDATE_PROFILE,
