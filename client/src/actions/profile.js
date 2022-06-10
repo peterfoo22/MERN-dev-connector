@@ -17,7 +17,7 @@ import {
 
 export const getCurrentProfile = () => async (dispatch) => {
 	try {
-		const res = await axios.get("http://localhost:5001/api/profile/me");
+		const res = await axios.get("/api/profile/me");
 
 		dispatch({
 			type: GET_PROFILE,
@@ -38,7 +38,7 @@ export const getCurrentProfile = () => async (dispatch) => {
 export const getProfiles = () => async (dispatch) => {
 	dispatch({type: CLEAR_PROFILE});
 	try {
-		const res = await axios.get("http://localhost:5001/api/profile/");
+		const res = await axios.get("/api/profile/");
 
 		dispatch({
 			type: GET_PROFILES,
@@ -58,7 +58,7 @@ export const getProfiles = () => async (dispatch) => {
 
 export const getProfileByID = (userID) => async (dispatch) => {
 	try {
-		const res = await axios.get(`http://localhost:5001/api/profile/user/${userID}`);
+		const res = await axios.get(`/api/profile/user/${userID}`);
 
 		dispatch({
 			type: GET_PROFILE,
@@ -78,7 +78,7 @@ export const getProfileByID = (userID) => async (dispatch) => {
 
 export const getGitHubRepos = (username) => async (dispatch) => {
 	try {
-		const res = await axios.get(`http://localhost:5001/api/profile/github/${username}`);
+		const res = await axios.get(`/api/profile/github/${username}`);
 
 		dispatch({
 			type: GET_REPOS,
@@ -101,7 +101,7 @@ export const createProfile =
 	async (dispatch) => {
 		try {
 			// could not use the axios.post command as it as not working, used the fetch command instead
-			await fetch("http://localhost:5001/api/profile/", {
+			await fetch("/api/profile/", {
 				method: "POST", // or 'PUT'
 				headers: {
 					"Content-Type": "application/json",
@@ -145,7 +145,7 @@ export const createProfile =
 export const addExperience = (formData) => async (dispatch) => {
 	try {
 		// could not use the axios.post command as it as not working, used the fetch command instead
-		await fetch("http://localhost:5001/api/profile/experience", {
+		await fetch("/api/profile/experience", {
 			method: "PUT", // or 'PUT'
 			headers: {
 				"Content-Type": "application/json",
@@ -187,7 +187,7 @@ export const addExperience = (formData) => async (dispatch) => {
 export const addEducation = (formData) => async (dispatch) => {
 	try {
 		// could not use the axios.post command as it as not working, used the fetch command instead
-		await fetch("http://localhost:5001/api/profile/education", {
+		await fetch("/api/profile/education", {
 			method: "PUT", // or 'PUT'
 			headers: {
 				"Content-Type": "application/json",
@@ -230,7 +230,7 @@ export const addEducation = (formData) => async (dispatch) => {
 
 export const deleteExperience = (id) => async (dispatch) => {
 	try {
-		fetch(`http://localhost:5001/api/profile/experience/${id}`, {
+		fetch(`/api/profile/experience/${id}`, {
 			method: "DELETE", // or 'PUT'
 			headers: {
 				"Content-Type": "application/json",
@@ -258,7 +258,7 @@ export const deleteExperience = (id) => async (dispatch) => {
 
 export const deleteEducation = (id) => async (dispatch) => {
 	try {
-		fetch(`http://localhost:5001/api/profile/education/${id}`, {
+		fetch(`/api/profile/education/${id}`, {
 			method: "DELETE", // or 'PUT'
 			headers: {
 				"Content-Type": "application/json",
@@ -287,7 +287,7 @@ export const deleteEducation = (id) => async (dispatch) => {
 export const deleteAccount = (id) => async (dispatch) => {
 	if (window.confirm("Are you sure? This cannot be undone!")) {
 		try {
-			fetch("http://localhost:5001/api/profile/", {
+			fetch("/api/profile/", {
 				method: "DELETE", // or 'PUT'
 				headers: {
 					"Content-Type": "application/json",
