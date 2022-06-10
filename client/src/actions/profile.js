@@ -100,9 +100,8 @@ export const createProfile =
 	(formData, edit = false) =>
 	async (dispatch) => {
 
-		console.log(localStorage.token);
-		const token = `${localStorage.token}`
-
+		const token = JSON.parse(`${localStorage.token}`.trim());
+		console.log(token);
 		try {
 			fetch("/api/profile", {
 				method: "POST", // or 'PUT'
