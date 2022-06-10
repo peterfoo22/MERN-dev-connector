@@ -100,20 +100,19 @@ export const createProfile =
 	(formData, edit = false) =>
 	async (dispatch) => {
 
-		const token = JSON.parse(`${localStorage.token}`.trim());
-		console.log(token);
 		try {
-			fetch("/api/profile", {
-				method: "POST", // or 'PUT'
-				headers: {
-					"Content-Type": "application/json",
-					"x-auth-token": token
-				},
-				body: JSON.stringify(formData),
-			})
-				.then((response) => response.json())
-				.then((data) => {
-					console.log("Success:", data);
+					const config = {
+						headers: {
+							"Content-Type": "application/json",
+							"x-auth-token": `${localStorage.token}`
+						}
+					};
+
+					const url = "/api/profile";
+
+					const res = await axios.post(url, formData, config);
+
+					console.log("Success:", res.data);
 					dispatch({
 						type: GET_PROFILE,
 						payload: data,
@@ -121,7 +120,7 @@ export const createProfile =
 					dispatch(
 						setAlert(edit ? "Profile Updated" : "Profile Created", "success")
 					);
-				});
+				
 		} catch (err) {
 			const errors = err.response.data.errors;
 
