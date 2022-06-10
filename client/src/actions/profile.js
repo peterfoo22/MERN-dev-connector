@@ -142,7 +142,7 @@ export const createProfile =
 export const addExperience = (formData) => async (dispatch) => {
 	try {
 		// could not use the axios.post command as it as not working, used the fetch command instead
-		const res = await axios.put("/profile/experience", formData);
+		const res = await axios.put("api//profile/experience", formData);
 
 		dispatch({
 			type: UPDATE_PROFILE,
@@ -169,7 +169,7 @@ export const addExperience = (formData) => async (dispatch) => {
 export const addEducation = (formData) => async (dispatch) => {
 	try {
 		// could not use the axios.post command as it as not working, used the fetch command instead
-		const res = await axios.put("/profile/education", formData);
+		const res = await axios.put("api/profile/education", formData);
 
 		dispatch({
 			type: UPDATE_PROFILE,
@@ -197,7 +197,7 @@ export const addEducation = (formData) => async (dispatch) => {
 
 export const deleteExperience = (id) => async (dispatch) => {
 	try {
-		const res = await axios.delete(`/profile/experience/${id}`);
+		const res = await axios.delete(`api/profile/experience/${id}`);
 
 		dispatch({
 			type: UPDATE_PROFILE,
@@ -217,7 +217,7 @@ export const deleteExperience = (id) => async (dispatch) => {
 
 export const deleteEducation = (id) => async (dispatch) => {
 	try {
-		const res = await axios.delete(`/profile/education/${id}`);
+		const res = await axios.delete(`api/profile/education/${id}`);
 
 		dispatch({
 			type: UPDATE_PROFILE,
@@ -238,7 +238,7 @@ export const deleteEducation = (id) => async (dispatch) => {
 export const deleteAccount = (id) => async (dispatch) => {
 	if (window.confirm("Are you sure? This cannot be undone!")) {
 		try {
-			await axios.delete("/profile");
+			await axios.delete("api/profile");
 
 			dispatch({
 				type: CLEAR_PROFILE,
