@@ -96,7 +96,7 @@ router.post(
 				return res.json(profile);
 			}
 
-			profile = new Porifle(profileFields);
+			profile = new Profile(profileFields);
 			await Profile.save();
 			return json(profile);
 		} catch (err) {
