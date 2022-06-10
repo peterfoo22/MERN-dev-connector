@@ -115,7 +115,7 @@ export const createProfile =
 					console.log("Success:", res.data);
 					dispatch({
 						type: GET_PROFILE,
-						payload: data,
+						payload: res.data,
 					});
 					dispatch(
 						setAlert(edit ? "Profile Updated" : "Profile Created", "success")
