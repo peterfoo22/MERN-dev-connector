@@ -99,12 +99,12 @@ export const getGitHubRepos = (username) => async (dispatch) => {
 export const createProfile =
 	(formData, edit = false) =>
 	async (dispatch) => {
-		console.log(localStorage.token);
 		try {
 			fetch("/api/profile", {
 				method: "POST", // or 'PUT'
 				headers: {
-					"Content-Type": "application/json"
+					"Content-Type": "application/json",
+					"x-auth-token":`${localStorage.token}`
 				},
 				body: JSON.stringify(formData),
 			})
