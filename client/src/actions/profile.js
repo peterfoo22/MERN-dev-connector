@@ -24,7 +24,7 @@ export const getCurrentProfile = () => async (dispatch) => {
 			payload: res.data,
 		});
 
-		console.log("Success - Curren Users Profile:", res.data);
+		console.log("Success - Curren User:", res.data);
 	} catch (err) {
 		dispatch({
 			type: PROFILE_ERROR,
@@ -97,33 +97,21 @@ export const getGitHubRepos = (username) => async (dispatch) => {
 //create or update a profile
 
 export const createProfile =
-	(formData, history, edit = false) =>
+	(formData, edit = false) =>
 	async (dispatch) => {
 		try {
 			// could not use the axios.post command as it as not working, used the fetch command instead
-			await fetch("/api/profile/", {
-				method: "POST", // or 'PUT'
-				headers: {
-					"Content-Type": "application/json",
-					Accept: "application/json",
-					"x-auth-token": `${localStorage.token}`,
-				},
-				body: JSON.stringify(formData), // error if you don't turn into JSON
-			})
-				.then((response) => response.json())
-				.then((data) => {
-					console.log("Success - Created Profile:", data);
+		  const res = await axios.post("/profile", formData);
 
-					dispatch({
-						type: GET_PROFILE,
-						payload: data,
-					});
+			dispatch({
+				type: GET_PROFILE,
+				payload: res.data,
+			});
 
-					dispatch(setAlert(edit ? "Profile Updated" : "Profile Created"));
-				})
-				.catch((error) => {
-					console.error("Error:", error);
-				});
+			dispatch(
+				setAlert(edit ? "Profile Updated" : "Profile Created", "success")
+			);
+
 		} catch (err) {
 			const errors = err.response.data.errors;
 
@@ -145,29 +133,15 @@ export const createProfile =
 export const addExperience = (formData) => async (dispatch) => {
 	try {
 		// could not use the axios.post command as it as not working, used the fetch command instead
-		await fetch("/api/profile/experience", {
-			method: "PUT", // or 'PUT'
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-				"x-auth-token": `${localStorage.token}`,
-			},
-			body: JSON.stringify(formData), // error if you don't turn into JSON
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				console.log("Success - Add Experience:", data);
+		const res = await axios.put("/profile/experience", formData);
 
-				dispatch({
-					type: UPDATE_PROFILE,
-					payload: data,
-				});
+		dispatch({
+			type: UPDATE_PROFILE,
+			payload: res.data,
+		});
 
-				dispatch(setAlert("Experience Added", "Success"));
-			})
-			.catch((error) => {
-				console.error("Error:", error);
-			});
+		dispatch(setAlert("Experience Added", "success"));
+
 	} catch (err) {
 		const errors = err.response.data.errors;
 
@@ -187,29 +161,14 @@ export const addExperience = (formData) => async (dispatch) => {
 export const addEducation = (formData) => async (dispatch) => {
 	try {
 		// could not use the axios.post command as it as not working, used the fetch command instead
-		await fetch("/api/profile/education", {
-			method: "PUT", // or 'PUT'
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-				"x-auth-token": `${localStorage.token}`,
-			},
-			body: JSON.stringify(formData), // error if you don't turn into JSON
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				console.log("Success:", data);
+		const res = await axios.put("/profile/education", formData);
 
-				dispatch({
-					type: UPDATE_PROFILE,
-					payload: data,
-				});
+		dispatch({
+			type: UPDATE_PROFILE,
+			payload: res.data,
+		});
 
-				dispatch(setAlert("Education Added", "Success"));
-			})
-			.catch((error) => {
-				console.error("Error:", error);
-			});
+		dispatch(setAlert("Education Added", "success"));
 	} catch (err) {
 		const errors = err.response.data.errors;
 
@@ -230,22 +189,14 @@ export const addEducation = (formData) => async (dispatch) => {
 
 export const deleteExperience = (id) => async (dispatch) => {
 	try {
-		fetch(`/api/profile/experience/${id}`, {
-			method: "DELETE", // or 'PUT'
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-				"x-auth-token": `${localStorage.token}`,
-			},
-		});
+		const res = await axios.delete(`/profile/experience/${id}`);
 
 		dispatch({
 			type: UPDATE_PROFILE,
+			payload: res.data,
 		});
 
 		dispatch(setAlert("Experience Removed", "success"));
-
-		window.setInterval(window.location.reload(), 20000);
 	} catch (err) {
 		dispatch({
 			type: PROFILE_ERROR,
@@ -258,22 +209,14 @@ export const deleteExperience = (id) => async (dispatch) => {
 
 export const deleteEducation = (id) => async (dispatch) => {
 	try {
-		fetch(`/api/profile/education/${id}`, {
-			method: "DELETE", // or 'PUT'
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-				"x-auth-token": `${localStorage.token}`,
-			},
-		});
+		const res = await axios.delete(`/profile/education/${id}`);
 
-		dispatch({
-			type: UPDATE_PROFILE,
-		});
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
 
-		dispatch(setAlert("Education Removed", "success"));
-
-		window.setInterval(window.location.reload(), 20000);
+    dispatch(setAlert('Education Removed', 'success'));
 	} catch (err) {
 		dispatch({
 			type: PROFILE_ERROR,
@@ -287,14 +230,7 @@ export const deleteEducation = (id) => async (dispatch) => {
 export const deleteAccount = (id) => async (dispatch) => {
 	if (window.confirm("Are you sure? This cannot be undone!")) {
 		try {
-			fetch("/api/profile/", {
-				method: "DELETE", // or 'PUT'
-				headers: {
-					"Content-Type": "application/json",
-					Accept: "application/json",
-					"x-auth-token": `${localStorage.token}`,
-				},
-			});
+		  await api.axios("/profile");
 
 			dispatch({
 				type: CLEAR_PROFILE,
