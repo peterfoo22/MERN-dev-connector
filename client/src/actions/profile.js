@@ -101,7 +101,7 @@ export const createProfile =
 	async (dispatch) => {
 		try {
 			// could not use the axios.post command as it as not working, used the fetch command instead
-		  const res = await axios.post("/profile", formData);
+		  const res = await axios.post("/profile/", formData);
 
 			dispatch({
 				type: GET_PROFILE,
