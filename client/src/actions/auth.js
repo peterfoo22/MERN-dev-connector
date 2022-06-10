@@ -21,7 +21,7 @@ export const loadUser = () => async (dispatch) => {
 	}
 
 	try {
-		const res = await axios.get("http://localhost:5001/api/auth");
+		const res = await axios.get("/api/auth");
 		dispatch({
 			type: USER_LOADED,
 			payload: res.data,
@@ -45,7 +45,7 @@ export const register =
 		};
 
 		try {
-			const url = "http://localhost:5001/api/users";
+			const url = "/api/users";
 
 			const res = await axios.post(url, newBody, config);
 
@@ -84,7 +84,7 @@ export const login = (email, password) => async (dispatch) => {
 	};
 
 	try {
-		const url = "http://localhost:5001/api/auth";
+		const url = "/api/auth";
 
 		const res = await axios.post(url, newBody, config);
 

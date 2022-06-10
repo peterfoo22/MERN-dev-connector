@@ -15,7 +15,7 @@ import {
 
 export const getPosts = () => async (dispatch) => {
 	try {
-		const res = await axios.get("http://localhost:5001/api/posts");
+		const res = await axios.get("/api/posts");
 
 		console.log("Success- ALL POSTS", res.data);
 
@@ -36,7 +36,7 @@ export const getPosts = () => async (dispatch) => {
 export const addLike = (postID) => async (dispatch) => {
 	try {
 		// could not use the axios.post command as it as not working, used the fetch command instead
-		await fetch(`http://localhost:5001/api/posts/like/${postID}`, {
+		await fetch(`/api/posts/like/${postID}`, {
 			method: "PUT", // or 'PUT'
 			headers: {
 				"Content-Type": "application/json",
@@ -76,7 +76,7 @@ export const addLike = (postID) => async (dispatch) => {
 export const removeLike = (postID) => async (dispatch) => {
 	try {
 		const res = await axios.put(
-			`http://localhost:5001/api/posts/unlike/${postID}`
+			`/api/posts/unlike/${postID}`
 		);
 
 		console.log("Success- Added Unlike Likee", res.data);
@@ -97,7 +97,7 @@ export const removeLike = (postID) => async (dispatch) => {
 
 export const deletePost = (id) => async (dispatch) => {
 	try {
-		await axios.delete(`http://localhost:5001/api/posts/${id}`);
+		await axios.delete(`/api/posts/${id}`);
 
 		dispatch({
 			type: DELETE_POST,
@@ -116,7 +116,7 @@ export const deletePost = (id) => async (dispatch) => {
 // Add post
 export const addPost = (formData) => async (dispatch) => {
   try {
-    const res = await axios.post("http://localhost:5001/api/posts", formData);
+    const res = await axios.post("/api/posts", formData);
 
     dispatch({
       type: ADD_POST,
@@ -136,7 +136,7 @@ export const addPost = (formData) => async (dispatch) => {
 
 export const getPost = (id) => async (dispatch) => {
 	try {
-		const res = await axios.get(`http://localhost:5001/api/posts/${id}`);
+		const res = await axios.get(`/api/posts/${id}`);
 
 		console.log("Post Retreived", res.data)
 
@@ -155,7 +155,7 @@ export const getPost = (id) => async (dispatch) => {
 // Add comment
 export const addComment = (postID, formData) => async (dispatch) => {
   try {
-    const res = await axios.post(`http://localhost:5001/api/posts/comment/${postID}`, formData);
+    const res = await axios.post(`/api/posts/comment/${postID}`, formData);
 
     dispatch({
       type: ADD_COMMENT,
@@ -174,7 +174,7 @@ export const addComment = (postID, formData) => async (dispatch) => {
 // Add comment
 export const deleteComment = (postID, commentID) => async (dispatch) => {
   try {
-    await axios.delete(`http://localhost:5001/api/posts/comment/${postID}/${commentID}`);
+    await axios.delete(`/api/posts/comment/${postID}/${commentID}`);
 
     dispatch({
       type: REMOVE_COMMENT,
